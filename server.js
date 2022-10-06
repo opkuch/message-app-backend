@@ -5,6 +5,7 @@ import Rooms from './dbRooms.js'
 import Users from './dbUsers.js'
 import Pusher from 'pusher'
 import cors from 'cors'
+import path from 'path';
 
 // app config
 const app = express()
