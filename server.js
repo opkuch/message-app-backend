@@ -6,7 +6,8 @@ import Users from './dbUsers.js'
 import Pusher from 'pusher'
 import cors from 'cors'
 import path from 'path';
-
+import {MONGO_DB_USERNAME, MONGO_DB_PASSWORD} from './secrets.js'
+console.log(MONGO_DB_USERNAME)
 // app config
 const app = express()
 const port = process.env.PORT || 4000
@@ -44,10 +45,9 @@ app.use((req, res, next) => {
     next()
 })
 
-
 // DB config
 const connection_url =
-  'mongodb+srv://admin:36wLn71QTW9nX1hQ@cluster0.5ki7k6q.mongodb.net/?retryWrites=true&w=majority'
+  `mongodb+srv://${MONGO_DB_USERNAME}:${MONGO_DB_PASSWORD}@cluster0.5ki7k6q.mongodb.net/?retryWrites=true&w=majority`
 
 mongoose.connect(connection_url, {
   useNewUrlParser: true,
