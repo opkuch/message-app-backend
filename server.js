@@ -10,6 +10,7 @@ import path from 'path';
 // app config
 const app = express()
 const port = process.env.PORT || 4000
+const __dirname = path.resolve();
 
 const pusher = new Pusher({
     appId: "1486714",
