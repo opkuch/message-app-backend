@@ -7,7 +7,6 @@ import Pusher from 'pusher'
 import cors from 'cors'
 import path from 'path';
 import {MONGO_DB_USERNAME, MONGO_DB_PASSWORD} from './secrets.js'
-console.log(MONGO_DB_USERNAME)
 // app config
 const app = express()
 const port = process.env.PORT || 4000
@@ -23,7 +22,7 @@ const pusher = new Pusher({
 
   if (process.env.NODE_ENV === 'production') {
     // Express serve static files on production environment
-    app.use(express.static(path.resolve(__dirname, 'public')))
+    app.use(express.static(path.resolve( 'public')))
 } else {
     // Configuring CORS
     const corsOptions = {
