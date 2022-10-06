@@ -6,16 +6,16 @@ import Users from './dbUsers.js'
 import Pusher from 'pusher'
 import cors from 'cors'
 import path from 'path';
-import {MONGO_DB_USERNAME, MONGO_DB_PASSWORD, PUSHER_KEY, PUSHER_SECRET} from './secrets.js'
+// import {MONGO_DB_USERNAME, MONGO_DB_PASSWORD, PUSHER_KEY, PUSHER_SECRET} from './secrets.js'
 // app config
 const app = express()
 const port = process.env.PORT || 4000
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 const pusher = new Pusher({
     appId: "1486714",
-    key: `${PUSHER_KEY}`,
-    secret: `${PUSHER_SECRET}`,
+    key: process.env.PUSHER_KEY,
+    secret: process.env.PUSHER_SECRET,
     cluster: "eu",
     useTLS: true
   })
@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 
 // DB config
 const connection_url =
-  `mongodb+srv://${MONGO_DB_USERNAME}:${MONGO_DB_PASSWORD}@cluster0.5ki7k6q.mongodb.net/?retryWrites=true&w=majority`
+  `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@cluster0.5ki7k6q.mongodb.net/?retryWrites=true&w=majority`
 
 mongoose.connect(connection_url, {
   useNewUrlParser: true,
