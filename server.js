@@ -22,7 +22,7 @@ const pusher = new Pusher({
 
   if (process.env.NODE_ENV === 'production') {
     // Express serve static files on production environment
-    app.use(express.static(path.resolve( 'public')))
+    app.use(express.static(path.resolve( __dirname, 'public')))
 } else {
     // Configuring CORS
     const corsOptions = {
