@@ -1,6 +1,7 @@
 {
   "name": "wazzup-backend",
   "homepage": "http://opkuch.github.io/wazzup-backend",
+  "repository": "https://github.com/opkuch/wazzup-backend",
   "version": "1.0.0",
   "engines": {
     "node": "14.17.0"
