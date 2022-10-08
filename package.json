@@ -3,7 +3,7 @@
   "homepage": "http://opkuch.github.io/wazzup-backend",
   "version": "1.0.0",
   "engines": {
-    "node": "18.10.0"
+    "node": "14.17.0"
   },
   "description": "",
   "main": "app.js",
