@@ -1,12 +1,12 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import Messages from '../dbMessages.js'
-import Rooms from '../dbRooms.js'
-import Users from '../dbUsers.js'
+import Messages from './dbMessages.js'
+import Rooms from './dbRooms.js'
+import Users from './dbUsers.js'
 import Pusher from 'pusher'
 import cors from 'cors'
 import path from 'path';
-import {MONGO_DB_USERNAME, MONGO_DB_PASSWORD, PUSHER_KEY, PUSHER_SECRET} from '../secrets.js'
+import {MONGO_DB_USERNAME, MONGO_DB_PASSWORD, PUSHER_KEY, PUSHER_SECRET} from './secrets.js'
 // app config
 const app = express()
 const port = process.env.PORT || 4000
@@ -131,4 +131,4 @@ app.post('/api/users/new', (req, res) => {
 })
 
 // listen
-app.listen(port, () => console.log(`Listening on localhost:${port}`))
+app.listen(port, () => console.log(`Wazzup listening on localhost:${port}`))
