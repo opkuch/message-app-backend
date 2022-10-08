@@ -37,7 +37,6 @@ const pusher = new Pusher({
 
 // middleware
 app.use(express.json())
-app.use(express.static('public'))
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.setHeader("Access-Control-Allow-Headers", "*")
