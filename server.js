@@ -10,7 +10,7 @@ import {MONGO_DB_USERNAME, MONGO_DB_PASSWORD, PUSHER_KEY, PUSHER_SECRET} from '.
 // app config
 const app = express()
 const port = process.env.PORT || 4000
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 const pusher = new Pusher({
     appId: "1486714",
@@ -22,7 +22,7 @@ const pusher = new Pusher({
 
   if (process.env.NODE_ENV === 'production') {
     // Express serve static files on production environment
-    app.use(express.static(path.resolve( 'public')))
+    app.use(express.static(path.join(__dirname, 'public')))
 } else {
     // Configuring CORS
     const corsOptions = {
@@ -37,7 +37,7 @@ const pusher = new Pusher({
 
 // middleware
 app.use(express.json())
-
+app.use(express.static('public'))
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.setHeader("Access-Control-Allow-Headers", "*")
@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 
 // DB config
 const connection_url =
-  `mongodb+srv://${MONGO_DB_USERNAME}:${MONGO_DB_PASSWORD}@cluster0.5ki7k6q.mongodb.net/?retryWrites=true&w=majority`
+process.env.DATABASE_URL || `mongodb+srv://${MONGO_DB_USERNAME}:${MONGO_DB_PASSWORD}@cluster0.5ki7k6q.mongodb.net/?retryWrites=true&w=majority`
 
 mongoose.connect(connection_url, {
   useNewUrlParser: true,
