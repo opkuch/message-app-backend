@@ -18,13 +18,13 @@ const port = process.env.PORT || 4000
 const __dirname = path.resolve()
 const pusher =
   process.env.NODE_ENV === 'production'
-    ? (pusher = new Pusher({
+    ? new Pusher({
         appId: '1486714',
         key: `${process.env.PUSHER_KEY}`,
         secret: `${process.env.PUSHER_SECRET}`,
         cluster: 'eu',
         useTLS: true,
-      }))
+      })
     : new Pusher({
         appId: '1486714',
         key: `${PUSHER_KEY}`,
