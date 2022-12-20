@@ -139,3 +139,35 @@ app.delete('/api/messages/delete', (req, res) => {
     }
     )
 })
+
+// api user routes
+app.get('/api/users', (req, res) => {
+  Users.find((err, data) => {
+    if (err) res.status(500).send(err)
+    else res.status(200).send(data)
+  })
+})
+app.get('/api/users/phone', (req, res) => {
+  const {phone} = req.query
+  const userCollection = connection.db.collection("users")
+  userCollection.find({phone: {$eq: phone}}).toArray((err, data) => {
+    if (err) res.status(500).send(err)
+    else res.status(200).send(data)
+  })
+})
+
+app.post('/api/users/new', (req, res) => {
+  const dbUser = req.body
+  Users.create(dbUser, (err, data) => {
+    if (err) res.status(500).send(err)
+    else res.status(201).send(data)
+  })
+})
+
+app.post('/api/users/update', async (req, res) => {
+  const dbUser = req.body
+  const doc = Users.create(dbUser)
+  res.send(await doc.save())
+})
+// listen
+app.listen(port, () => console.log(`Wazzup listening on localhost:${port}`))
