@@ -161,8 +161,12 @@ app.post('/api/users/new', (req, res) => {
 
 app.post('/api/users/update', async (req, res) => {
   const dbUser = req.body
-  const doc = Users.create(dbUser)
-  res.send(await doc.save())
+  const doc = await Users.findOne({_id: dbUser._id})
+  console.log(doc)
+  const updatedDoc = await doc.updateOne({contacts: dbUser.contacts})
+  if(updatedDoc) res.send(updatedDoc)
 })
+
+
 // listen
 app.listen(port, () => console.log(`Wazzup listening on localhost:${port}`))
