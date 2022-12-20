@@ -142,6 +142,7 @@ app.get('/api/users', (req, res) => {
     else res.status(200).send(data)
   })
 })
+
 app.get('/api/users/phone', (req, res) => {
   const { phone } = req.query
   const userCollection = connection.db.collection('users')
@@ -150,6 +151,15 @@ app.get('/api/users/phone', (req, res) => {
     else res.status(200).send(data)
   })
 })
+
+// app.post('/api/users/signup', (req, res) => {
+//   const userInfo = req.body
+//   const userCollection = connection.db.collection('users')
+//   userCollection.find({ phone: { $eq: phone } }).toArray((err, data) => {
+//     if (err) res.status(500).send(err)
+//     else res.status(200).send(data)
+//   })
+// })
 
 app.post('/api/users/new', (req, res) => {
   const dbUser = req.body
