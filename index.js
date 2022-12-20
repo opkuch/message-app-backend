@@ -72,3 +72,32 @@ mongoose.connect(connection_url, {
   useUnifiedTopology: true,
 })
 
+const connection = mongoose.connection
+
+connection.once('open', () => {
+  console.log('DB connected')
+
+  const msgCollection = connection.collection('messages')
+  const changeStream = msgCollection.watch()
+
+  changeStream.on('change', (change) => {
+    console.log(change)
+
+    if (change.operationType === 'insert') {
+      const messageDetails = change.fullDocument
+      pusher.trigger('messages', 'inserted', {
+        _id: messageDetails._id,
+        name: messageDetails.name,
+        message: messageDetails.message,
+        timestamp: messageDetails.timestamp,
+        senderId: messageDetails.senderId,
+        recieverId: messageDetails.recieverId,
+      })
+    } else if(change.operationType === 'delete') {
+        pusher.trigger('messages', 'deleted', change.documentKey._id)
+    }
+     else {
+      console.log('Error triggering Pusher')
+    }
+  })
+})
