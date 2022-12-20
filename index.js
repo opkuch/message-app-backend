@@ -5,12 +5,12 @@ import Users from './dbUsers.js'
 import Pusher from 'pusher'
 import cors from 'cors'
 import path from 'path'
-// import {
-//   MONGO_DB_USERNAME,
-//   MONGO_DB_PASSWORD,
-//   PUSHER_KEY,
-//   PUSHER_SECRET,
-// } from './secrets.js'
+import {
+  MONGO_DB_USERNAME,
+  MONGO_DB_PASSWORD,
+  PUSHER_KEY,
+  PUSHER_SECRET,
+} from './secrets.js'
 // app config
 const app = express()
 const __dirname = path.resolve()
@@ -30,7 +30,7 @@ const pusher =
         cluster: 'eu',
         useTLS: true,
       })
-
+      console.log(process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'production') {
   // Express serve static files on production environment
   app.use(express.static(path.join(__dirname, 'dist')))
