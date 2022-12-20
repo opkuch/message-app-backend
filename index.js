@@ -101,3 +101,41 @@ connection.once('open', () => {
     }
   })
 })
+
+// API CHAT MESSAGES ROUTES
+
+app.get('/api/messages/sync', (req, res) => {
+  const {receiverId, senderId} = req.query
+  const msgCollection = connection.db.collection("messages")
+  msgCollection.find({receiverId: {$eq: receiverId}, senderId: {$eq: senderId}}).toArray(function(err, data){
+    if (err) res.status(500).send(err)
+    else res.status(200).send(data)
+  })
+})
+
+app.post('/api/messages/new', async (req, res) => {
+  const dbMessage = req.body
+  const doc = await Messages.create(dbMessage)
+  doc.save((err) => {
+    if (err) res.status(500).send(err)
+
+    else res.status(200).send(doc)
+  })
+})
+
+app.delete('/api/messages/delete', (req, res) => {
+    const messageId = req.body
+    Messages.findById(messageId, (err, message) => {
+        if (err) { 
+            console.log('DELETE Error: ' + err);
+            res.status(500).send('Error');
+          } else if (message) {
+            message.remove( () => {
+              res.status(200).json(message);
+            });
+         } else {
+            res.status(404).send('Not found');
+          }
+    }
+    )
+})
