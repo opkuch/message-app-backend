@@ -1,11 +1,11 @@
 import mongoose from "mongoose"
 
-const wazzupSchema = mongoose.Schema({
+const messageSchema = mongoose.Schema({
+    senderId: String,
+    receiverId: String,
     message: String,
     name: String,
     timestamp: String,
-    received: Boolean,
-    roomId: String
 })
 
-export default mongoose.model('messagecontents', wazzupSchema)
+export default mongoose.model('messages', messageSchema, 'messages')
