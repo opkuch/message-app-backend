@@ -5,12 +5,12 @@ import Users from './dbUsers.js'
 import Pusher from 'pusher'
 import cors from 'cors'
 import path from 'path'
-import {
-  MONGO_DB_USERNAME,
-  MONGO_DB_PASSWORD,
-  PUSHER_KEY,
-  PUSHER_SECRET,
-} from './secrets.js'
+// import {
+//   MONGO_DB_USERNAME,
+//   MONGO_DB_PASSWORD,
+//   PUSHER_KEY,
+//   PUSHER_SECRET,
+// } from './secrets.js'
 // app config
 const app = express()
 const __dirname = path.resolve()
