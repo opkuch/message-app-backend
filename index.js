@@ -5,12 +5,12 @@ import Users from './dbUsers.js'
 import Pusher from 'pusher'
 import cors from 'cors'
 import path from 'path'
-// import {
-//   MONGO_DB_USERNAME,
-//   MONGO_DB_PASSWORD,
-//   PUSHER_KEY,
-//   PUSHER_SECRET,
-// } from './secrets.js'
+import {
+  MONGO_DB_USERNAME,
+  MONGO_DB_PASSWORD,
+  PUSHER_KEY,
+  PUSHER_SECRET,
+} from './secrets.js'
 // app config
 const app = express()
 const __dirname = path.resolve()
@@ -33,14 +33,14 @@ const pusher =
 
 if (process.env.NODE_ENV === 'production') {
   // Express serve static files on production environment
-  app.use(express.static(path.join(__dirname, 'dist')))
+  app.use(express.static(path.join(__dirname, 'public')))
 } else {
   // Configuring CORS
   const corsOptions = {
     // Make sure origin contains the url your frontend is running on
     origin: [
-      'http://127.0.0.1:5173',
-      'http://localhost:5173',
+      'http://127.0.0.1:5174',
+      'http://localhost:5174',
       'http://127.0.0.1:3000',
       'http://localhost:3000',
     ],
