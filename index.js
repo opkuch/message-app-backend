@@ -6,12 +6,6 @@ import Pusher from 'pusher'
 import cors from 'cors'
 import path from 'path'
 import * as dotenv from 'dotenv'
-// import {
-//   MONGO_DB_USERNAME,
-//   MONGO_DB_PASSWORD,
-//   PUSHER_KEY,
-//   PUSHER_SECRET,
-// } from './secrets.js'
 
 // app config
 const app = express()
