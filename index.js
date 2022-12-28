@@ -156,8 +156,10 @@ app.get('/api/users/phone', (req, res) => {
 // })
 
 app.post('/api/users/new', (req, res) => {
-  const dbUser = req.body
-  Users.create(dbUser, (err, data) => {
+  const userCredentials = req.body
+  const userToSave = JSON.parse(JSON.stringify(userCredentials))
+  userToSave.contacts = []
+  Users.create(userToSave, (err, data) => {
     if (err) res.status(500).send(err)
     else res.status(201).send(data)
   })
