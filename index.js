@@ -1,7 +1,8 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import Messages from './dbMessages.js'
-import Users from './dbUsers.js'
+import Messages from './models/dbMessages.js'
+import Chats from './models/dbChats.js'
+import Users from './models/dbUsers.js'
 import Pusher from 'pusher'
 import cors from 'cors'
 import path from 'path'
@@ -91,6 +92,27 @@ connection.once('open', () => {
   })
 })
 
+
+// API CHAT ROUTES
+
+app.get('/api/chat', (req, res) => {
+  const { chatId } = req.query
+  const chatCollection = connection.db.collection('chats')
+  chatCollection.find({_id: {$eq: chatId}})
+  .toArray((err, data) => {
+    if (err) res.status(500).send(err)
+    else res.status(200).send(data)
+  })
+
+
+})
+app.post('/api/chat/message', async (req, res) => {
+  const { messageData } = req.body
+  const doc = await Chats.findOne({_id: messageData.chatId})
+  const updatedDoc = await doc.updateOne({messages: messageData.messages})
+  if(updatedDoc) res.send(updatedDoc)
+
+})
 // API CHAT MESSAGES ROUTES
 
 app.get('/api/messages/sync', (req, res) => {
@@ -146,14 +168,6 @@ app.get('/api/users/phone', (req, res) => {
   })
 })
 
-// app.post('/api/users/signup', (req, res) => {
-//   const userInfo = req.body
-//   const userCollection = connection.db.collection('users')
-//   userCollection.find({ phone: { $eq: phone } }).toArray((err, data) => {
-//     if (err) res.status(500).send(err)
-//     else res.status(200).send(data)
-//   })
-// })
 
 app.post('/api/users/new', (req, res) => {
   const userCredentials = req.body
@@ -168,7 +182,6 @@ app.post('/api/users/new', (req, res) => {
 app.post('/api/users/update', async (req, res) => {
   const dbUser = req.body
   const doc = await Users.findOne({_id: dbUser._id})
-  console.log(doc)
   const updatedDoc = await doc.updateOne({contacts: dbUser.contacts})
   if(updatedDoc) res.send(updatedDoc)
 })
